@@ -1,0 +1,67 @@
+@charset "UTF-8";
+/* CSS Document */
+html{-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; height:100%;}
+*{-webkit-tap-highlight-color:transparent;outline:0;}
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0;vertical-align:baseline}
+i,em{font-style:normal}
+ol,ul,li{list-style:none}
+input,select,button,h1,h2,h3,h4,h5,h6{font-size:100%;font-family:inherit; font-weight:normal}
+a,a:visited{text-decoration:none;color:#fff}
+body{margin:0 auto; min-width:320px; max-width:640px; background:#efefef;font-size:14px;font-family:Helvetica,STHeiti STXihei, Microsoft JhengHei, Microsoft YaHei, Arial;line-height:2em;color:#999;-webkit-text-size-adjust:100% !important;-webkit-user-select:none;user-select:none;}
+img{ width:100%; height:auto;border:none; interpolation-mode: bicubic;border:0;vertical-align:top}
+.txt-center{ text-align:center;}
+.txt-justify{ text-align:justify; text-justify:inter-ideograph;}
+a,button,input,i{-webkit-tap-highlight-color:rgba(0,0,0,0); -moz-tap-highlight-color:rgba(0,0,0,0); -ms-tap-highlight-color:rgba(0,0,0,0);tap-highlight-color:rgba(0,0,0,0);} 
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section,div,p,ul,dl,dt,dd{display:block;padding:0px; margin:0px auto; border:none;}
+
+/* 布局开始 */
+
+.g-hd{z-index: 500; position: relative;}
+.g-state{width:100%; position:relative; color:#fff; padding:5% 0; background:url(../images/headerbg.png) repeat-x; background-size:contain;}
+
+.m-state span{font-size:20px; height:20px;}
+.m-state .in-state{ padding:2% 0; overflow:hidden; color:#fff;}
+.m-state i{width:1px; height:90%; background:#fff; position:absolute; top:0%; right:0; opacity:.3}
+
+/*模块*/
+.m-grid{width: 100%;display: -webkit-box; display: -moz-box;display: -o-box; display: -ms-box; display: flex; }
+.m-grid .grid{-moz-box-flex: 1;-webkit-box-flex: 1; -o-box-flex: 1;-ms-flex: 1; flex: 1;  text-align: center; position: relative; flex-wrap:wrap;}
+.m-slide-pd{padding: 10px 5%;}
+.m-slide{padding:25px 0 5px; min-height:40px; position:relative;}
+.m-slide .slide-box{width: 100%;height: 20px;position:relative;}
+.m-slide .slide-value{width: 100%; height: 24px;line-height: 24px;}
+.m-slide .slide-value .max{float: right;}
+.m-slide .show{width: 100%; height: 4px; background-color:#eef2f7; }
+.m-slide .mover{height: 4px;width: 50%; background-color: #07B4DE; top: 0; /*left: 0; */position: absolute; box-sizing: border-box;}
+.m-slide .cover{width: 30px; height: 30px; overflow: hidden;  border-radius: 50%;left: 50%;  background-color: #fff; border: solid 2px #07B4DE; top: -14px;  position: absolute; box-sizing: border-box;}
+.m-scene .grid{padding:16px 0 8px;}
+/*开关*/
+.m-switch{padding: 5%;background: #fff;}
+.m-flex-w{width: 100%;display: -webkit-box; display: -moz-box;display: -o-box; display: -ms-box; display: flex;height: 40px;}
+.m-flex-w .l-flex{-moz-box-flex: 1;-webkit-box-flex: 1; -o-box-flex: 1;-ms-flex: 1; flex: 1;height: 40px;line-height: 40px;font-size:20px; }
+.m-flex-w .l-flex .font{color: #07B4DE;}
+.m-flex-w .l-w{height: 46px;}
+.m-flex-w .l-w .btn-switch{width: 46px;height: 46px;background: url(../images/gjico2.png) no-repeat center; background-size: 46px 46px;}
+.m-flex-w .l-w .btn-switch.select{width: 46px;height: 46px;background: url(../images/gjico1.png) no-repeat center; background-size: 46px 46px;}
+
+.m-flex-pd{padding: 5%;background: #fff;position: relative;}
+.m-btn-txt{ border:#07B4DE 1px solid; border-radius:20px; padding:0 12px; height:30px; line-height: 30px; color:#07B4DE; margin-top: 2px;}
+.m-btn-txt a{color:#07B4DE;}
+/*bd*/
+.g-bd{padding: 8px;}
+.m-box{border:#eaeaea 1px solid; overflow:hidden; border-radius:5px; border-bottom:0; background:#fff;}
+.m-box h3{padding:4% 5%; position:relative; font-size:16px; font-weight:normal; color:#333; border-bottom:solid 1px #eaeaea;box-sizing: border-box;}
+.m-box .output{margin-left:10px; white-space: nowrap; font-size:16px; color:#07B4DE;}
+/*.m-box i{display:inline-block; width:22px; height:22px;}*/
+.m-box img{display:inline-block; width:22px; height:22px;}
+.m-box .l-flex .font{font-size: 14px;}
+.m-box p{display:block; width:100%; height:20px; line-height: 12px; }
+
+.m-box .grid{border-right:solid 1px #eaeaea;box-sizing: border-box;}
+.m-box .grid:last-child{border-right:none;}
+.m-box .grid.select{ background:#07B4DE; color:#fff;}
+
+.in-margin{margin-bottom: 8px;}
+
+/*遮罩*/
+.m-mask{width: 100%; position: fixed;top: 0;left: 0;right: 0; bottom: 0; background:rgba(0,0,0,0.4);z-index: 100;display: none;}
