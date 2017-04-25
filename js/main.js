@@ -38,10 +38,6 @@ var main={
 			"callBackName": ["bar_close", "setting"]
 		};
 		JDSMART.util.configActionBar(param);
-
-		// JDSMART.app.config({
-		// 	titletext: "乐家庭智能灯"
-		// });
 		
 		JDSMART.app.config( //配置导航按钮隐藏显示
 		{
