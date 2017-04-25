@@ -4,5 +4,4 @@
 使用html，css，JavaScript知识构建
 
 在index.html尽可能的只使用父节点。例如：
- <!-- 亮度 -->
  <div class="m-bright in-margin" id="id-bright"></div>
