@@ -1,5 +1,5 @@
 /*
-	@author:weizuichunsun
+	@author_wx:rongyuezhicheng
 	@组件采用原生JS设计实现！
 */
 var apiData={
@@ -12,6 +12,7 @@ var apiData={
 function bar_close(){
 	JDSMART.util.closeWindow();  
 }
+
 //初始化…
 var main={
 	init:function(){
@@ -27,18 +28,18 @@ var main={
 			// 获取设备快照接口
 			setInterval(function(){
             	self.getSnapshot();
-    		},5400);
+    		},4000);
 		});
 	},
 	showButton:function(flag){
-		// console.log(bar_close)
+		console.log("bar_close")
 		var param = {
 			"what": ["button1", "button4"],
 			"display": ["drawable_back", "drawable_setting"],
 			"callBackName": ["bar_close", "setting"]
 		};
 		JDSMART.util.configActionBar(param);
-		
+
 		JDSMART.app.config( //配置导航按钮隐藏显示
 		{
 			showBack: flag,
@@ -52,6 +53,7 @@ var main={
 		// 获取 APP 的网络状态   
 		JDSMART.app.getNetworkType(
 			function (suc) {    
+				// console.log(suc)
 				var networkType = suc.TypeName; // 返回网络类型 MOBILE，WIFI
 				if(networkType=="MOBILE"||networkType=="mobile"){
 					JDSMART.app.toast({message:"当前网络非wifi模式"}, null);
@@ -60,6 +62,7 @@ var main={
 	},
 	initDeviceData:function(){
 		var self=this;
+		// console.log("initDeviceData");
 		JDSMART.io.initDeviceData(function (res) {
 	        apiData.feedid = res.device.feed_id; //getSnapshot的错
 	        // console.log(apiData.feedid)
@@ -69,12 +72,25 @@ var main={
 	},
 	getSnapshot:function(){
 		var self=this;
+		// console.log("getSnapshot");
 		JDSMART.io.getSnapshot(	// 获取设备快照接口
 			function (suc) { 
+				var status=JSON.parse(suc).status;
+				console.log(suc);
 				// 执行成功的回调
-				self.getData(suc);
+				if(parseInt(status)!=1){
+					self.maskAll(true);  // 设备不在线
+				}
+				else
+				{
+					self.getData(suc);	
+					self.maskAll(false);  // 设备在线
+					
+				}
+			
 			},
 			function (error) { 
+				console.log("getSnapshot main=>",error);
 				// JDSMART.app.toast({message:error}, null);
 				 // 执行失败的回调
 			}
@@ -87,9 +103,15 @@ var main={
 		}
 		if(res){
 			var dataArray=res["streams"];
+			// console.log("dataArray=",dataArray);
 			var dataEach=function(item,index,array){
 				// 获取数据
 				var api_stream_id=item.stream_id;
+				if(typeof api_stream_id!="string"){
+					console.log("getData stream_id h5.toString() ");
+					api_stream_id=api_stream_id.toString();
+				}
+		
 				// 组件值判断
 				switch (api_stream_id) {
 					case 'brightness':
@@ -170,6 +192,20 @@ var main={
 			font.innerHTML="已关闭";
 		}
 	},
+	maskAll:function(flag){		
+		if(flag){
+			document.getElementById('id-mask-all').style.display="block";
+		}
+		else
+		{
+			document.getElementById('id-mask-all').style.display="none";
+
+		}
+		JDSMART.app.config({
+            showOnline:flag   // true---显示：表示设备不在线   false---不显示：表示设备在线
+        });
+
+	},
 	myScene:function(data){
     	var node=document.getElementById('id-scene'),
     		grid=node.querySelectorAll(".grid");  //点击元素
@@ -180,30 +216,37 @@ var main={
 			colortemp_value=parseInt(data.colortemp);
     	var map=[
 				{
+
+					iconlink:"ico0_a.png",
+					iconhover:"ico0_b.png",
+					title:"手动",
+					value:"0"
+				},
+				{
+
 					iconlink:"ico1_a.png",
 					iconhover:"ico1_b.png",
-					title:"小夜灯",
+					title:"阅读",
 					value:"1"
 				},
 				{
 					iconlink:"ico2_a.png",
 					iconhover:"ico2_b.png",
-					title:"电影",
+					title:"观影",
 					value:"2"
 				},
 				{
-
 					iconlink:"ico3_a.png",
 					iconhover:"ico3_b.png",
-					title:"阅读",
+					title:"聚会",
 					value:"3"
 				},
 				{
 					iconlink:"ico4_a.png",
 					iconhover:"ico4_b.png",
-					title:"会客",
+					title:"睡眠",
 					value:"4"
-				}
+				}		
 			];
     	var clearStyle=function(){
 			for(var i=0;i<grid.length;i++){
@@ -218,36 +261,10 @@ var main={
 			grid[index].className="grid select";
 			grid[index].getElementsByTagName('img')[0].src="images/"+map[index].iconhover;
 		}
-		  
-
-		var val=value-1;
-		switch(val){
-			case 0:
-				selectStyle(0);
-				break;
-			case 1:
-				selectStyle(1);
-				break;
-			case 2:
-				selectStyle(2);
-				break;
-			case 3:
-				selectStyle(3);
-				break;
-		}
+		selectStyle(value);
 	},
 	myBright:function(data){	
 		// 亮度
-		// var bright_temp=new hyDA.slideDA("id-bright",{
-		// 	uiTitle:"亮度设置",
-		// 	value:"50",
-		// 	min:1,
-		// 	max:100,
-		// 	unit:"%",
-		// 	change:function(event,value){
-		// 		console.log(event,value);
-		// 	}
-		// })
 		var node=document.getElementById('id-bright');
 		var value=parseInt(data.brightness);
 		var output=node.querySelector(".output");
@@ -261,8 +278,6 @@ var main={
 		var showWidth=parseFloat(window.getComputedStyle(show)["width"]),
 			coverWidth=parseFloat(window.getComputedStyle(cover)["width"]),
 			moverLeft=parseFloat(window.getComputedStyle(cover)["left"]);
-
-			// console.log(moverLeft);
 		
 		var min_max=function(){
 			// 顺序不可乱
@@ -299,16 +314,6 @@ var main={
 	},
 	myColorTemperature:function(data){
 		// 色温
-		// var color_temperature_temp=new hyDA.slideDA("id-color-temperature",{
-		// 	uiTitle:"色温设置",
-		// 	value:"20",
-		// 	min:0,
-		// 	max:100,
-		// 	unit:"%",
-		// 	change:function(event,value){
-		// 		console.log(event,value);
-		// 	}
-		// });
 		var node=document.getElementById('id-color-temperature');
 		var value=parseInt(data.colortemp);
 		var output=node.querySelector(".output");
@@ -353,8 +358,6 @@ var main={
 		}
 		
 		output.innerHTML=value+unit;
-
-
 	},
 	myAlarmClock:function(data){
 		var feedid = data.feedid;
@@ -371,8 +374,6 @@ var main={
 		var nowDate = new Date();
 		var objMin;
 		var feed_ids = { feed_ids: "[" + feedid + "]" };
-		// document.getElementById('id-alarm-clock').getElementsByTagName('h3')[0].innerHTML=feedid;
-
 		JDSMART.util.post("service/getTimedTaskByFeedIds", feed_ids,
 		function(res) {
 			var taskList = res.result;
