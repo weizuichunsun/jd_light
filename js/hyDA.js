@@ -1,5 +1,5 @@
 /*
-	@author:weizuichunsun
+	@author_wx:rongyuezhicheng
 	@组件采用原生JS设计实现！
 */
 window.hyDA={};
@@ -119,7 +119,7 @@ window.hyDA={};
 
 		var html='<div class="m-box">\
 		            <h3>'+uiTitle+'</h3>\
-		            <div class="m-grid">'+gridHTML+'</div>\
+		            <div class="m-grid-mode">'+gridHTML+'</div>\
 		        </div>'
 		node.innerHTML=html;
 		// 事件
