@@ -1,0 +1,1839 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0 , maximum-scale=1.0, user-scalable=0">
+		<meta name="format-detection" content="telephone=no">
+		<link type="text/css" rel="stylesheet" href="css/timetask.css">
+		<link type="text/css" rel="stylesheet" href="css/mobiscroll.2.13.2.css"
+		/>
+		<script type="text/javascript" src="js/jquery.js">
+		</script>
+		<script type="text/javascript" src="js/mobiscroll.2.13.2.js">
+		</script>
+		<!-- 京东 -->
+		<script type="text/javascript" src="https://static.360buyimg.com/smart/jdsmart-1.0.3.js">
+		</script>
+		<!-- 本地 -->
+		<!-- <script type="text/javascript" src="https://storage.jd.com/testsmartcloud/jdsmart-pc-1.0.1.js"></script> -->
+		<title>
+			时间设置
+		</title>
+	</head>
+	<body>
+		<!--首页-->
+		<section id="page1" style="display:block;">
+			<div class="timebox" onClick="gotoLog();">
+				<h3>
+					执行记录
+					<em>
+					</em>
+				</h3>
+			</div>
+			<div id="taskS">
+			</div>
+			<div class="timetext" id="no_task" style="display:none">
+				<img style="width:18%; display:block; margin:auto; margin-bottom:20px"
+				src="images/zwjlico.png">
+				暂无设置定时
+				<br>
+				<span>
+					点击页面右上方“＋”新建定时任务
+				</span>
+			</div>
+		</section>
+		<!--设置-->
+		<section id="page2" style="display:none;">
+			<div class="timebox">
+				<div class="tim_sz">
+					<input type="text" value="00:00" name="appTime" id="appTime" class="time"
+					disabled="value" />
+				</div>
+			</div>
+			<div class="timebox">
+				<h3 onClick="week_xs()">
+					重复
+					<p id="repeatTsId">
+						执行一次
+					</p>
+					<em>
+					</em>
+				</h3>
+			</div>
+			<!--一个任务-->
+			<div class="timebox" id="oneTask" style="display:none;">
+				<h3>
+					定时任务
+					<p id="oneTaskName">
+					</p>
+				</h3>
+			</div>
+			<!--两个任务-->
+			<div class="timebox" id="twoTaskS" style="display:none;">
+				<h3>
+					定时任务
+				</h3>
+				<div class="dsoff">
+					<button id="first_tast" onClick="getthisTk(this)">
+					</button>
+					<button id="secend_tast" onClick="getthisTk(this)">
+					</button>
+				</div>
+			</div>
+			<!--多个任务-->
+			<div class="timebox" id="moreTasks" style="display:none;">
+				<h3 onClick="moreTashow_to();">
+					定时任务
+					<p>
+						编辑
+					</p>
+					<em>
+					</em>
+				</h3>
+			</div>
+			<div class="timebox">
+				<h3 onClick="goTaskNaUpdate()">
+					定时名称
+					<p id="taskName" title="">
+						未编辑
+					</p>
+					<em>
+					</em>
+				</h3>
+			</div>
+			<div class="timebox">
+				<h3 onClick="intTongZhi()">
+					执行结果通知
+					<p id="tongzhi_type_text">
+						均通知
+					</p>
+					<em>
+					</em>
+				</h3>
+			</div>
+			<button class="delebox" id="delId" onClick="deleteTs();">
+				删除定时
+			</button>
+		</section>
+		<section id="page3" style="display:none">
+			<div class="timebox">
+				<h3>
+					重复
+					<div class="btn off" id="time1">
+						<span>
+						</span>
+					</div>
+				</h3>
+				<div class="timing_con" id="time_con1">
+					<em class="text">
+						执行一次
+					</em>
+				</div>
+				<ul class="radio_box" style="display:none" id="time_con2">
+					<li>
+						<input id="radio_1" class="radio" name="radio" type="radio">
+						<label for="radio_1" class="trigger">
+							每天
+							<i>
+							</i>
+						</label>
+					</li>
+					<li>
+						<input id="radio_2" class="radio" name="radio" type="radio">
+						<label for="radio_2" class="trigger">
+							工作日
+							<i>
+							</i>
+						</label>
+					</li>
+					<li>
+						<input id="radio_3" class="radio" name="radio" type="radio">
+						<label for="radio_3" class="trigger">
+							自定义
+							<i>
+							</i>
+						</label>
+					</li>
+				</ul>
+				<ul class="radio_box hi_de" style="display:none" id="time_con3">
+					<li>
+						<input id="radio_mr_7" class="radio" name="radio_mr" type="checkbox">
+						<label for="radio_mr_7" class="trigger">
+							周日
+							<i>
+							</i>
+						</label>
+					</li>
+					<li>
+						<input id="radio_mr_1" class="radio" name="radio_mr" type="checkbox">
+						<label for="radio_mr_1" class="trigger">
+							周一
+							<i>
+							</i>
+						</label>
+					</li>
+					<li>
+						<input id="radio_mr_2" class="radio" name="radio_mr" type="checkbox">
+						<label for="radio_mr_2" class="trigger">
+							周二
+							<i>
+							</i>
+						</label>
+					</li>
+					<li>
+						<input id="radio_mr_3" class="radio" name="radio_mr" type="checkbox">
+						<label for="radio_mr_3" class="trigger">
+							周三
+							<i>
+							</i>
+						</label>
+					</li>
+					<li>
+						<input id="radio_mr_4" class="radio" name="radio_mr" type="checkbox">
+						<label for="radio_mr_4" class="trigger">
+							周四
+							<i>
+							</i>
+						</label>
+					</li>
+					<li>
+						<input id="radio_mr_5" class="radio" name="radio_mr" type="checkbox">
+						<label for="radio_mr_5" class="trigger">
+							周五
+							<i>
+							</i>
+						</label>
+					</li>
+					<li>
+						<input id="radio_mr_6" class="radio" name="radio_mr" type="checkbox">
+						<label for="radio_mr_6" class="trigger">
+							周六
+							<i>
+							</i>
+						</label>
+					</li>
+				</ul>
+			</div>
+			<div class="ht60">
+			</div>
+		</section>
+		<section id="page4" style="display:none">
+			<div class="timebox">
+				<ul class="radio_box" id="tongzhi_id">
+					<li>
+						<input id="radio_ts_1" class="radio" name="radio_ts" type="radio">
+						<label for="radio_ts_1" class="trigger">
+							均通知
+							<i>
+							</i>
+						</label>
+					</li>
+					<li>
+						<input id="radio_ts_2" class="radio" name="radio_ts" type="radio">
+						<label for="radio_ts_2" class="trigger">
+							仅执行失败通知
+							<i>
+							</i>
+						</label>
+					</li>
+					<li>
+						<input id="radio_ts_3" class="radio" name="radio_ts" type="radio">
+						<label for="radio_ts_3" class="trigger">
+							不通知
+							<i>
+							</i>
+						</label>
+					</li>
+				</ul>
+			</div>
+		</section>
+		<section id="page5" style="display:none">
+			<div class="timebox">
+				<ul class="radio_box" id="renwu_list">
+				</ul>
+			</div>
+		</section>
+		<section id="page7" style="display:none">
+			<div class="timebox">
+				<h3>
+					<input type="text" class="inp" id="update_name" value="">
+					<a class="del" onClick="deleTaskName()">
+						删除
+					</a>
+				</h3>
+				<ul class="radio_box" id="renwu_list">
+				</ul>
+			</div>
+		</section>
+		<!--执行记录-->
+		<section id="page6" style="display:none">
+			<div id="logHtm" style="display:none">
+				<div class="timebox">
+					<h3>
+						定时开启
+						<a class="dele">
+							删除
+						</a>
+					</h3>
+					<div class="timing_con">
+						<em id="time_t_01">
+							10:30
+						</em>
+						<span class="rq">
+							12月12日
+						</span>
+						<p>
+							执行成功
+						</p>
+						<div class="zxzt">
+							<i class="yes">
+								执行成功
+							</i>
+						</div>
+					</div>
+				</div>
+				<div class="timebox">
+					<h3>
+						定时开启
+						<a class="dele">
+							删除
+						</a>
+					</h3>
+					<div class="timing_con">
+						<em id="time_t_02">
+							10:30
+						</em>
+						<p>
+							执行失败
+						</p>
+						<div class="zxzt">
+							<i class="no">
+								执行失败
+							</i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="timetext" id="no_logHtm" style="display:none">
+				暂无执行纪录！
+			</div>
+			<div class="ht60">
+			</div>
+		</section>
+		<!--确认删除任务-->
+		<div class="tanbox" id="maTsDelete" style="display:none;">
+			<h3>
+				是否删除该定时任务
+			</h3>
+			<div class="tanbut">
+				<button onClick="noDeleteTs();">
+					否
+				</button>
+				<button onClick="deleteTwo();">
+					是
+				</button>
+			</div>
+		</div>
+		<!--提示-->
+		<div class="tanbox" id="maTsDel" style="display:none;">
+			<h3>
+				是否清空记录
+			</h3>
+			<div class="tanbut">
+				<button onClick="onQuerenClose();">
+					否
+				</button>
+				<button onClick="closeAllLog();">
+					是
+				</button>
+			</div>
+		</div>
+		<!--提示编辑-->
+		<div id="bjts" class="bjts" style="display:none">
+			<div class="bjtsbut">
+				<button onClick="updateGo();">
+					编辑
+				</button>
+				<button onClick="deleteOne();">
+					删除
+				</button>
+			</div>
+			<div class="jsbut">
+				<button onClick="qxjs();" class="red">
+					取消
+				</button>
+			</div>
+		</div>
+		<!--加载动画-->
+		<div class="loader" style="display:none;">
+			<div class="ball-beat">
+				<div>
+				</div>
+				<div>
+				</div>
+				<div>
+				</div>
+			</div>
+		</div>
+		<div id="mask1" class="mask" style="display:none">
+		</div>
+		<div id="mask2" class="mask" style="display:none">
+		</div>
+		<div id="mask3" class="mask" style="display:none">
+		</div>
+		<div id="maskDelete" class="mask" style="display:none">
+		</div>
+		<div style="display:none">
+			<input type="hidden" id="week_str" value="_*_*_*_*" />
+			<input type="hidden" id="task_sid" value="" />
+			<input type="hidden" id="tongzhi_type" value="1" />
+			<input type="hidden" id="updateId" value="" />
+			<input type="hidden" id="oldName" value="" />
+			<input type="hidden" id="numTaskMax" value="" />
+		</div>
+	</body>
+
+</html>
+<script>
+	//不需要，你就用我给你的http://devsmart.jd.com/product/main?UUID=QZRH5Z这个地址上传即可
+	var streas_arr = [];
+	var feedid;
+	var di_name;
+	var addOrUpdate = true;
+	var type; //任务个数   0：一个任务  1：两个任务 2:多个任务 
+	var streams; //任务设置JSON数组
+	var more_stream;
+	/*
+//一个任务
+type=0;
+streams={"stream_id":"work","name":"开机定时","value":"1"};
+*/
+
+	//两个任务
+	type = 1;
+	streams = {
+		"streams": [{
+			"stream_id": "power",
+			"name": "一键开启",
+			"value": "1"
+		},
+		{
+			"stream_id": "power",
+			"name": "一键关闭",
+			"value": "0"
+		}]
+	};
+	/**/
+
+	//多个任务
+	/*type=2;
+streams={"streams":[ 
+       {"more":[{"stream_id":"work","name":"定时关机","value":"0"},{"stream_id":"work","name":"定时开机","value":"1"}]},
+	   {"stream_id":"dete","name":"开机定时","value":"1"}
+	  ]};
+var more_stream="work,dete";
+*/
+	JDSMART.ready(function() {
+		feedid = getQry("feedid");
+		firstBar();
+		getAlltask();
+		moreTashow();
+	});
+	//------------首页-----------
+	//1,定时首页头部显示标题及功能
+	function firstBar() {
+		var param = {
+			"what": ["button1", "button4"],
+			"display": ["drawable_back", "drawable_add"],
+			"callBackName": ["newNoe", "addTaskFn"]
+		};
+		JDSMART.util.configActionBar(param);
+		JDSMART.app.config({
+			titletext: "定时设置"
+		});
+	}
+	//点击添加
+	function addTaskFn() {
+
+		//执行页面初始化
+		initAddTask();
+		//显示添加定时页面 
+		// //执行头部设置
+		addTastbar();
+		showPage(2);
+	}
+	//新建修改定时标题
+	function addTastbar() {
+		var title = "";
+		var param = {
+			"what": ["button1", "button4"],
+			"display": ["取消", "保存"],
+			"callBackName": ["cancel_newTask", "saveOrUpdateTask"]
+		};
+		JDSMART.util.configActionBar(param);
+		if (addOrUpdate) {
+			title = "新建定时";
+		} else {
+			title = "修改定时";
+		}
+		JDSMART.app.config({
+			titletext: title
+		});
+	}
+	//初始化新建页面
+	function initAddTask() {
+
+		view_wait();
+		addOrUpdate = true;
+		if (type == 0) {
+			streas_arr = [{
+				"stream_id": streams.stream_id,
+				"stream_value": streams.value
+			}];
+			$("#oneTaskName").text(streams.name);
+			$("#taskName").text(streams.name);
+			$("#taskName").attr("title", streams.name);
+			//$("#taskName").displayPart();
+			$("#oneTask").show();
+			$("#twoTaskS").hide();
+			$("#moreTasks").hide();
+		} else if (type == 1) {
+			$("#first_tast").attr("class", "");
+			$("#secend_tast").attr("class", "");
+			streas_arr = [{
+				"stream_id": streams.streams[0].stream_id,
+				"stream_value": streams.streams[0].value
+			}];
+			$("#first_tast").text(streams.streams[0].name);
+			$("#first_tast").attr("class", "cur");
+			$("#secend_tast").text(streams.streams[1].name);
+			$("#taskName").text(streams.streams[0].name);
+			$("#taskName").attr("title", streams.streams[0].name);
+			//$("#taskName").displayPart();  
+			$("#oneTask").hide();
+			$("#twoTaskS").show();
+			$("#moreTasks").hide();
+		} else if (type == 2) {
+			toast("我是多个任务");
+			streas_arr = [];
+			$("#oneTask").hide();
+			$("#twoTaskS").hide();
+			$("#moreTasks").show();
+		}
+		var ddaa = new Date();
+		var hs = ddaa.getHours();
+		var ms = ddaa.getMinutes();
+		if (parseInt(ms) < 10) {
+			ms = "0" + ms;
+		}
+		if (parseInt(hs) < 10) {
+			hs = "0" + hs;
+		}
+		$("#appTime").val(hs + ":" + ms);
+		$('#appTime').mobiscroll().time({
+			theme: 'android-ics light',
+			//皮肤样式
+			display: 'inline',
+			//显示方式 Inline
+			mode: 'scroller',
+			//日期选择模式
+			lang: 'zh',
+			//  defaultValue: new Date(new Date().setHours(00, 02, 00, 0)),
+			minDate: new Date(new Date().setHours(00, 00, 0, 0)),
+			maxDate: new Date(new Date().setHours(23, 59, 0, 0)),
+			setText: '',
+			//确认按钮名称
+			cancelText: '',
+			//取消按钮名籍我
+			showLabel: "true",
+			//
+			hourText: "时",
+			//
+			minuteText: "分",
+			//
+		});
+		hide_wait();
+		$("#repeatTsId").text("执行一次");
+		$("#week_str").val("_" + ddaa.getDate() + "_" + (ddaa.getMonth() + 1) + "_*_" + ddaa.getFullYear());
+		$("#tongzhi_type_text").text("均通知");
+		$("#tongzhi_type").val("1");
+		$("#updateId").val("");
+		$("#delId").hide();
+	}
+	//获取任务
+	function getthisTk(bg) {
+		var id_str = $(bg).attr("id");
+		if (id_str == "first_tast") {
+			$("#first_tast").attr("class", "cur");
+			$("#secend_tast").attr("class", "");
+			streas_arr = [{
+				"stream_id": streams.streams[0].stream_id,
+				"stream_value": streams.streams[0].value
+			}];
+			$("#taskName").text(streams.streams[0].name);
+			$("#taskName").attr("title", streams.streams[0].name);
+			// $("#taskName").displayPart();
+		} else {
+			$("#first_tast").attr("class", "");
+			$("#secend_tast").attr("class", "cur");
+			streas_arr = [{
+				"stream_id": streams.streams[1].stream_id,
+				"stream_value": streams.streams[1].value
+			}];
+
+			$("#taskName").text(streams.streams[1].name);
+			$("#taskName").attr("title", streams.streams[1].name);
+			//  $("#taskName").displayPart();
+		}
+	}
+
+	function moreTashow() {
+		var renwu_str = "";
+		if (type != 0) {
+			var parse = streams.streams;
+			for (var i = 0; i < parse.length; i++) {
+				var parse_one = parse[i];
+				if (parse_one.more) {
+					for (var j = 0; j < parse_one.more.length; j++) {
+						renwu_str = renwu_str + "<li><input id='" + parse_one.more[j].stream_id + "_" + parse_one.more[j].value + "' class='radio' name='" + parse_one.more[j].stream_id + "_renwu' type='radio'>" + "<label for='" + parse_one.more[j].stream_id + "_" + parse_one.more[j].value + "' class='trigger'>" + parse_one.more[j].name + "<i></i></label></li>";
+					}
+				} else {
+					renwu_str = renwu_str + "<li><input id='" + parse_one.stream_id + "_" + parse_one.value + "' class='radio' name='radio_renwu' type='checkbox'>" + "<label for=" + parse_one.stream_id + "_" + parse_one.value + " class='trigger'>" + parse_one.name + "<i></i></label></li>";
+				}
+			}
+			$("#renwu_list").empty();
+			$("#renwu_list").append(renwu_str);
+		}
+	}
+	//显示页面
+	//通过feedid获取全部定时任务
+	function getAlltask() {
+		view_wait();
+		feedid = getQry("feedid");
+		var str_stask = ""; //任务遍历标签字符串
+		var feed_ids = {
+			feed_ids: "[" + feedid + "]"
+		};
+		JDSMART.util.post("service/getTimedTaskByFeedIds", feed_ids,
+		function(res) {
+			var pase = res.result;
+			var sata = "off";
+			$("#numTaskMax").val(pase.length);
+			if (pase.length >= 1) {
+				for (var i = 0; i < pase.length; i++) {
+					if (pase[i].task_status == "1") {
+						sata = "on";
+					} else {
+						sata = "off";
+					}
+					var ted = get_expreee(pase[i].task_time_express);
+					var ted_str = "";
+					if (ted.type == 1) {
+						ted_str = "执行一次";
+					} else if (ted.type == 4) {
+						ted_str = "每天";
+					} else if (ted.type == 2) {
+						ted_str = "";
+						var arr_week = ted.week.split(',');
+						for (var j = 0; j < arr_week.length; j++) {
+							if (arr_week[j] == 1) {
+								ted_str = ted_str + "周一 ";
+							} else if (arr_week[j] == 2) {
+								ted_str = ted_str + "周二 ";
+							} else if (arr_week[j] == 3) {
+								ted_str = ted_str + "周三 ";
+							} else if (arr_week[j] == 4) {
+								ted_str = ted_str + "周四 ";
+							} else if (arr_week[j] == 5) {
+								ted_str = ted_str + "周五 ";
+							} else if (arr_week[j] == 6) {
+								ted_str = ted_str + "周六 ";
+							} else if (arr_week[j] == 7) {
+								ted_str = ted_str + "周日 ";
+							}
+						}
+						if (arr_week == "1,2,3,4,5,6,7") {
+							ted_str = "每天";
+						} else if (arr_week == "1,2,3,4,5") {
+							ted_str = "工作日";
+						}
+
+					}
+
+					if (parseInt(pase[i].next_left_minutes) > 0) {
+						var shengyu_str = "";
+						var shengyu = parseInt(pase[i].next_left_minutes);
+						var nddd = 24 * 60;
+						var shengyuDay = parseInt(shengyu / nddd);
+						if (shengyuDay < 1) {
+							var shengyu_hs = parseInt(shengyu / 60);
+							var shengyu_min = parseInt(shengyu % 60);
+							if (shengyu_hs < 10) {
+								shengyu_hs = "0" + shengyu_hs;
+							}
+							if (shengyu_min < 10) {
+								shengyu_min = "0" + shengyu_min;
+							}
+							if (parseInt(shengyu_hs) == 0) {
+								shengyu_str = parseInt(shengyu_min) + "分钟后执行";
+							} else {
+								shengyu_str = shengyu_hs + "小时" + shengyu_min + "分钟后执行";
+							}
+						} else {
+							shengyu_str = shengyuDay + "天后执行";
+						}
+						str_stask = str_stask + " <div class='timebox'  ><h3>" + pase[i].task_name + " <a  class='bjico' onClick=updateKZ('yes','" + pase[i].task_id + "')>编辑</a></h3>" + "<div class='timing_con'><em>" + ted.hour + ":" + ted.minute + "</em><p>" + ted_str + "  " + shengyu_str + "</p> <div onClick=onclc(this," + pase[i].task_id + ")  class='btn " + sata + "' name='" + pase[i].task_id + "'><span></span></div></div></div>";
+					} else if (parseInt(pase[i].next_left_minutes) == 0) {
+
+						str_stask = str_stask + " <div class='timebox'  ><h3>" + pase[i].task_name + " <a  class='bjico' onClick=updateKZ('yes','" + pase[i].task_id + "')>编辑</a></h3>" + "<div class='timing_con'><em>" + ted.hour + ":" + ted.minute + "</em><p>" + ted_str + "  1分钟内执行</p> <div onClick=onclc(this," + pase[i].task_id + ")  class='btn " + sata + "' name='" + pase[i].task_id + "'><span></span></div></div></div>";
+
+					} else {
+						if (ted.type == 1) {
+							str_stask = str_stask + " <div class='timebox'  ><h3>" + pase[i].task_name + " <a  class='bjico' onClick=updateKZ('no','" + pase[i].task_id + "')>编辑</a></h3>" + "<div class='timing_con'><em class='c999'>" + ted.hour + ":" + ted.minute + "</em><p>" + ted_str + "</p>  <div class='gq'><span>已过期</span></div></div></div>";
+						} else {
+							str_stask = str_stask + " <div class='timebox'  ><h3>" + pase[i].task_name + " <a  class='bjico' onClick=updateKZ('yes','" + pase[i].task_id + "')>编辑</a></h3>" + "<div class='timing_con'><em>" + ted.hour + ":" + ted.minute + "</em><p>" + ted_str + "</p> <div onClick=onclc(this," + pase[i].task_id + ")  class='btn " + sata + "' name='" + pase[i].task_id + "'><span></span></div></div></div>";
+
+						}
+
+					}
+
+				}
+				$("#taskS").empty();
+				$("#taskS").append(str_stask);
+				$("#no_task").hide();
+			} else {
+				$("#taskS").empty();
+				$("#no_task").show();
+			}
+			hide_wait();
+		});
+	}
+	//编辑弹框
+	function updateKZ(type, tkid) {
+		clearBar();
+		bianji();
+		$("#updateId").val(tkid);
+		if (type == "yes") {
+			$("#task_sid").val("yes");
+		} else if (type == "no") {
+			$("#task_sid").val("no");
+		}
+	}
+	//跳转修改定时页面
+	function updateGo() {
+		qxjs();
+		//修改初始化
+		initUpdate();
+		//页面显示
+		////改变头部
+		addTastbar();
+		showPage(2);
+
+	}
+	//更新初始化
+	function initUpdate() {
+		view_wait();
+		addOrUpdate = false;
+		$("#delId").show();
+		var task = $("#updateId").val();
+		var commnd = {
+			"task_ids": "[" + task + "]"
+		};
+		JDSMART.util.post("service/getTimedTaskByTaskIds", commnd,
+		function(suc) {
+
+			var pasd = suc.result[0];
+
+			var ted = get_expreee(pasd.task_time_express);
+			var ted_str = "";
+			if (ted.type == 1) {
+				ted_str = "执行一次";
+			} else if (ted.type == 4) {
+				ted_str = "每天";
+			} else if (ted.type == 2) {
+				ted_str = "";
+				var arr_week = ted.week.split(',');
+				for (var j = 0; j < arr_week.length; j++) {
+					if (arr_week[j] == 1) {
+						ted_str = ted_str + "周一 ";
+					} else if (arr_week[j] == 2) {
+						ted_str = ted_str + "周二 ";
+					} else if (arr_week[j] == 3) {
+						ted_str = ted_str + "周三 ";
+					} else if (arr_week[j] == 4) {
+						ted_str = ted_str + "周四 ";
+					} else if (arr_week[j] == 5) {
+						ted_str = ted_str + "周五 ";
+					} else if (arr_week[j] == 6) {
+						ted_str = ted_str + "周六 ";
+					} else if (arr_week[j] == 7) {
+						ted_str = ted_str + "周日 ";
+					}
+				}
+
+				if (arr_week == "1,2,3,4,5,6,7") {
+					ted_str = "每天";
+				} else if (arr_week == "1,2,3,4,5") {
+					ted_str = "工作日";
+				}
+			}
+			$("#appTime").val(ted.hour + ":" + ted.minute);
+			$('#appTime').mobiscroll().time({
+				theme: 'android-ics light',
+				//皮肤样式
+				display: 'inline',
+				//显示方式 Inline
+				mode: 'scroller',
+				//日期选择模式
+				lang: 'zh',
+				//  defaultValue: new Date(new Date().setHours(00, 02, 00, 0)),
+				minDate: new Date(new Date().setHours(00, 00, 0, 0)),
+				maxDate: new Date(new Date().setHours(23, 59, 0, 0)),
+				setText: '',
+				//确认按钮名称
+				cancelText: '',
+				//取消按钮名籍我
+				showLabel: "true",
+				//
+				hourText: "时",
+				//
+				minuteText: "分",
+				//
+			});
+			$("#week_str").val("_" + ted.day + "_" + ted.april + "_" + ted.week + "_" + ted.year);
+			/*if($("#task_sid").val()=="yes"){
+				   
+				  }else{
+				    var newDate_s=new Date();
+					$("#week_str").val("_"+newDate_s.getDate()+"_"+(new_time.getMonth()+1)+"_*_"+new_time.getFullYear());
+				  }*/
+			$("#tongzhi_type").val(pasd.pmg_setting);
+			$("#repeatTsId").text(ted_str);
+			if (parseInt(pasd.pmg_setting) == -1) {
+				$("#tongzhi_type_text").text("不通知");
+			} else if (parseInt(pasd.pmg_setting) == 0) {
+				$("#tongzhi_type_text").text("仅执行失败通知");
+			}
+			if (parseInt(pasd.pmg_setting) == 1) {
+				$("#tongzhi_type_text").text("均通知");
+			}
+			$("#taskName").text(pasd.task_name);
+			$("#taskName").attr("title", pasd.task_name);
+			// $("#taskName").displayPart();
+			if (type == 0) {
+				streas_arr = [{
+					"stream_id": streams.stream_id,
+					"stream_value": streams.value
+				}];
+				$("#oneTaskName").text(streams.name);
+				$("#oneTask").show();
+				$("#twoTaskS").hide();
+				$("#moreTasks").hide();
+			} else if (type == 1) {
+				$("#first_tast").text(streams.streams[0].name);
+				$("#secend_tast").text(streams.streams[1].name);
+				var ste_id = streams.streams[0].stream_id;
+				var josn = pasd.task_express[0].stream[0];
+				var val_str;
+				for (var key in josn) {
+					val_str = josn[key];
+				}
+				if (val_str == streams.streams[0].value) {
+					$("#first_tast").attr("class", "cur");
+					$("#secend_tast").attr("class", "");
+				} else {
+					$("#first_tast").attr("class", "");
+					$("#secend_tast").attr("class", "cur");
+				}
+				streas_arr = [{
+					"stream_id": ste_id,
+					"stream_value": val_str
+				}];
+				$("#oneTask").hide();
+				$("#twoTaskS").show();
+				$("#moreTasks").hide();
+			} else if (type == 2) {
+				streas_arr = [];
+				if (pasd.task_express[0].stream.length > 1) {
+					for (var i = 0; i < pasd.task_express.length; i++) {
+						var ddsd = pasd.task_express.stream[i];
+						var arr_more_stream = more_stream.split(',');
+						for (var j = 0; j < arr_more_stream.length; j++) {
+							var ste_id = arr_more_stream[j];
+							if (ddsd.ste_id != undefined && ddsd.ste_id != "") {
+								var obh = {
+									"stream_id": ste_id,
+									"stream_value": ddsd.ste_id
+								};
+								streas_arr.push(obh);
+							}
+						}
+					}
+				}
+				$("#oneTask").hide();
+				$("#twoTaskS").hide();
+				$("#moreTasks").show();
+
+			}
+			hide_wait();
+		});
+
+	}
+	//删除定时
+	function deleteOne() {
+		var commnd = {
+			"task_ids": "[" + $("#updateId").val() + "]"
+		};
+		JDSMART.util.post("service/removeTimedTask", commnd,
+		function(suc) {
+			noDeleteTs();
+			getAlltask();
+			firstBar();
+			qxjs();
+			$("#updateId").val("");
+		});
+
+	}
+	function deleteTwo() {
+		var commnd = {
+			"task_ids": "[" + $("#updateId").val() + "]"
+		};
+		JDSMART.util.post("service/removeTimedTask", commnd,
+		function(suc) {
+			noDeleteTs();
+			getAlltask();
+			$("#updateId").val("");
+			firstBar();
+			showPage(1);
+		});
+
+	}
+	//弹出删除提示
+	function deleteTs() {
+		$("#maskDelete").show();
+		$("#maTsDelete").show();
+		clearBar();
+	}
+	function noDeleteTs() {
+		$("#maskDelete").hide();
+		$("#maTsDelete").hide();
+		addTastbar();
+	}
+	//----------------新建修改页面-------------------------------------
+	//返回首页
+	function cancel_newTask() { //不刷新
+		firstBar();
+		getAlltask();
+		showPage(1);
+		$("#updateId").val("");
+	}
+	//保存/更新
+	function saveOrUpdateTask() {
+		if (addOrUpdate) {
+			//添加
+			addTask();
+		} else {
+			//修改
+			modifyTask();
+		}
+	}
+	//添加定时任务
+	function addTask() {
+		var num_max = $("#numTaskMax").val();
+		if (parseInt(num_max) < 101) {
+			view_wait();
+			var tongzhi_text = $("#tongzhi_type").val();
+			var get_time_week_type = get_expreee("0_0" + $("#week_str").val());
+			if (get_time_week_type.type == 1) {
+				if (timeIsBig()) {
+					var mingt = GetDateStr(1);
+					$("#week_str").val("_" + mingt.getDate() + "_" + (mingt.getMonth() + 1) + "_*_" + mingt.getFullYear());
+				}
+			}
+			var appTime_dingshi = $("#appTime").val(); //定时时间
+			var arr_t = appTime_dingshi.split(':');
+			var express_str = parseInt(arr_t[1]) + "_" + parseInt(arr_t[0]) + $("#week_str").val();
+
+			var app_time = getFormatedTime(); //定时时间
+			var timed_task = {};
+			timed_task.app_time = app_time;
+			timed_task.task_name = $("#taskName").attr("title");
+			timed_task.task_time_express = express_str;
+			timed_task.task_express = [{
+				"feed_id": feedid,
+				"stream": streas_arr
+			}];
+			timed_task.task_type = '1';
+			timed_task.pmg_setting = tongzhi_text;
+			timed_task = {
+				"timed_task": JSON.stringify(timed_task)
+			};
+			JDSMART.util.post("service/addTimedTask", timed_task,
+			function(res) {
+				//alert(JSON.stringify(res));
+				if (res.status == 0) {
+					var dds = JSON.parse(res.result);
+					if (parseInt(dds.task_id) == 0) {
+						toast("咦！您设置的定时任务与之前的定时任务有冲突，请您重新设置哦！");
+						hide_wait();
+					} else {
+						serTimeBig(dds.server_time);
+						getAlltask();
+						showPage(1);
+						firstBar();
+					}
+				} else {
+					hide_wait();
+					if (res.error.errorCode == 5001) {
+						if (res.error.errorInfo.indexOf("最多") > 0) {
+							toast("您最多可以添加100组定时任务");
+						} else {
+							toast("保存失败,定时已存在或网络异常");
+						}
+					}
+				}
+			});
+		} else if (parseInt(num_max) >= 101) {
+			toast("您最多可以添加100组定时任务");
+		} else {
+			toast("网络不稳定，保存失败");
+		}
+	}
+	//更新
+	function modifyTask() {
+		view_wait();
+		var tongzhi_text = $("#tongzhi_type").val();
+		var get_time_week_type = get_expreee("0_0" + $("#week_str").val());
+		if (get_time_week_type.type == 1) {
+			if (timeIsBig()) {
+				var mingt = GetDateStr(1);
+				$("#week_str").val("_" + mingt.getDate() + "_" + (mingt.getMonth() + 1) + "_*_" + mingt.getFullYear());
+			} else {
+				var mingt = GetDateStr(0);
+				$("#week_str").val("_" + mingt.getDate() + "_" + (mingt.getMonth() + 1) + "_*_" + mingt.getFullYear());
+			}
+		}
+		var appTime_dingshi = $("#appTime").val(); //定时时间
+		var arr_t = appTime_dingshi.split(':');
+		var express_str = parseInt(arr_t[1]) + "_" + parseInt(arr_t[0]) + $("#week_str").val();
+		var cmd = {
+			"timed_task": {
+				"app_time": getFormatedTime(),
+				"task_id": $("#updateId").val(),
+				"task_name": $("#taskName").attr("title"),
+				"task_time_express": express_str,
+				"task_express": [{
+					"feed_id": feedid,
+					"stream": streas_arr
+				}],
+				"task_type": 1,
+				"pmg_setting": tongzhi_text
+			}
+		}
+		JDSMART.util.post("service/modifyTimedTask", cmd,
+		function(res) {
+			if (res.status == 0) {
+				var dds = JSON.parse(res.result);
+				if (parseInt(dds.task_id) == 0) {
+					toast("咦！您设置的定时任务与之前的定时任务有冲突，请您重新设置哦！");
+					hide_wait();
+				} else {
+					serTimeBig(dds.server_time);
+					getAlltask();
+					showPage(1);
+					firstBar();
+				}
+			} else {
+				hide_wait();
+				toast("保存失败,定时已存在或网络异常");
+			}
+		});
+	}
+
+	//判断只执行一次下当前时间大于设置时间
+	//重复初始化
+	function week_xs() {
+		//获取 type
+		weekBar();
+		var type_w = $("#repeatTsId").text();
+		if (type_w == "每天") {
+			//应显示
+			$(".radio").removeAttr("checked");
+			$("#time1").attr("class", "btn on");
+			$("#time_con1").hide();
+			$("#time_con2").show();
+			$("#time_con3").attr("class", "radio_box hi_de");
+			//$("#time_con3").attr("class","radio_box sh_ow"); 
+			$("#radio_1").attr("checked", "checked");
+			$("#time_con3").hide();
+		} else if (type_w == "执行一次") {
+			$(".radio").removeAttr("checked");
+			$("#time1").attr("class", "btn off");
+			$("#time_con1").show();
+			$("#time_con2").hide();
+			$("#time_con3").attr("class", "radio_box hi_de");
+			$("#time_con3").hide();
+
+		} else if (type_w == "工作日") {
+			$(".radio").removeAttr("checked");
+			$("#time1").attr("class", "btn on");
+			$("#time_con1").hide();
+			$("#time_con2").show();
+			$("#time_con3").attr("class", "radio_box hi_de");
+			//$("#time_con3").attr("class","radio_box sh_ow"); 
+			$("#radio_2").attr("checked", "checked");
+			$("#time_con3").hide();
+		} else {
+			$(".radio").removeAttr("checked");
+			$("#time1").attr("class", "btn on");
+			$("#time_con1").hide();
+			$("#time_con2").show();
+			$("#time_con3").attr("class", "radio_box sh_ow");
+			$("#radio_3").attr("checked", "checked");
+			var taaa = type_w.split(' ');
+			for (var i = 0; i < taaa.length; i++) {
+				if (taaa[i] == "周一") {
+					$("#radio_mr_1").attr("checked", "checked");
+				} else if (taaa[i] == "周二") {
+					$("#radio_mr_2").attr("checked", "checked");
+				} else if (taaa[i] == "周三") {
+					$("#radio_mr_3").attr("checked", "checked");
+				} else if (taaa[i] == "周四") {
+					$("#radio_mr_4").attr("checked", "checked");
+				} else if (taaa[i] == "周五") {
+					$("#radio_mr_5").attr("checked", "checked");
+				} else if (taaa[i] == "周六") {
+					$("#radio_mr_6").attr("checked", "checked");
+				} else if (taaa[i] == "周日") {
+					$("#radio_mr_7").attr("checked", "checked");
+				}
+			}
+			$("#time_con3").show();
+		}
+		//根据type显示不同的显示
+		showPage(3);
+	}
+	//-------------------------重复页面--------------------
+	var flag = true;
+	$("#time1").on('click',
+	function() {
+		if ($(this).attr("class").indexOf("on") >= 0) {
+			$(this).attr("class", "btn off");
+			colse_week();
+		} else {
+			$(this).attr("class", "btn on");
+		}
+		var flag_1 = true;
+		if (flag_1) {
+			$("#time_con1,#time_con2").slideToggle();
+			flag_1 = false;
+			setTimeout(function() {
+				flag_1 = true;
+			},
+			500);
+		}
+	});
+	//
+	$("#radio_3").on('click',
+	function() {
+		if ($("#time_con3").attr("class").indexOf("hi_de") >= 0) {
+			if (flag) {
+				$("#time_con3").slideToggle();
+				flag = false;
+				setTimeout(function() {
+					flag = true;
+				},
+				500);
+			}
+			$("#time_con3").attr("class", "radio_box sh_ow");
+		} else {
+			if (flag) {
+				$("#time_con3").slideToggle();
+				flag = false;
+				setTimeout(function() {
+					flag = true;
+				},
+				500);
+			}
+			$("#time_con3").attr("class", "radio_box hi_de");
+
+		}
+	});
+
+	$("#radio_2").on('click',
+	function() {
+		colse_week();
+	});
+
+	$("#radio_1").on('click',
+	function() {
+		colse_week();
+	});
+	$("#time_kg").on('click',
+	function() {
+		if (flag) {
+			$("#time_kgcon").slideToggle();
+			flag = false;
+			setTimeout(function() {
+				flag = true;
+			},
+			500);
+		}
+	})
+	//
+	$("#time_01").on("click",
+	function(e) {
+		if ($(this).attr("class").indexOf("on") >= 0) {
+			$("#time_t_01").attr("class", "");
+		} else {
+			$("#time_t_01").attr("class", "c999");
+		}
+	});
+	//
+	$("#time_02").on("click",
+	function(e) {
+		if ($(this).attr("class").indexOf("on") >= 0) {
+			$("#time_t_02").attr("class", "");
+		} else {
+			$("#time_t_02").attr("class", "c999");
+		}
+	});
+
+	//关闭星期
+	function colse_week() {
+		if ($("#time_con3").attr("class").indexOf("sh_ow") >= 0) {
+			if (flag) {
+				$("#time_con3").slideToggle();
+				flag = false;
+				setTimeout(function() {
+					flag = true;
+				},
+				500);
+			}
+			$("#time_con3").attr("class", "radio_box hi_de");
+		}
+	}
+	//修改头部
+	function weekBar() {
+		var param = {
+			"what": ["button1"],
+			"display": ["drawable_back"],
+			"callBackName": ["weekSave"]
+		};
+		JDSMART.util.configActionBar(param);
+		JDSMART.app.config({
+			titletext: "重复"
+		});
+	}
+	//保存重复
+	function weekSave() {
+		if ($("#time1").attr("class").indexOf("on") >= 0) {
+			var radio_id = $('#time_con2 input:radio[name="radio"]:checked').attr("id");
+			if (radio_id == "radio_1") {
+				$("#week_str").val("_*_*_*_*");
+				$("#repeatTsId").text("每天");
+				//每天
+			} else if (radio_id == "radio_2") {
+				//工作日
+				$("#repeatTsId").text("工作日");
+				$("#week_str").val("_*_*_1,2,3,4,5_*");
+			} else if (radio_id == "radio_3") {
+				var radio_mr_str = [];
+				var radio_mr_arr = [];
+				$('#time_con3 input:checkbox[name="radio_mr"]:checked').each(function() {
+					var radio_id_mr = $(this).attr("id");
+					if (radio_id_mr == "radio_mr_1") {
+						radio_mr_str.push(1);
+					} else if (radio_id_mr == "radio_mr_2") {
+						radio_mr_str.push(2);
+					} else if (radio_id_mr == "radio_mr_3") {
+						radio_mr_str.push(3);
+					} else if (radio_id_mr == "radio_mr_4") {
+						radio_mr_str.push(4);
+					} else if (radio_id_mr == "radio_mr_5") {
+						radio_mr_str.push(5);
+					} else if (radio_id_mr == "radio_mr_6") {
+						radio_mr_str.push(6);
+					} else if (radio_id_mr == "radio_mr_7") {
+						radio_mr_str.push(7);
+					}
+				});
+				if (radio_mr_str.length > 0) {
+					radio_mr_str = radio_mr_str.sort(function(a, b) {
+						return a - b;
+					});
+					for (var i = 0; i < radio_mr_str.length; i++) {
+						if (radio_mr_str[i] == 1) {
+							radio_mr_arr.push("周一");
+						} else if (radio_mr_str[i] == 2) {
+							radio_mr_arr.push("周二");
+						}
+						if (radio_mr_str[i] == 3) {
+							radio_mr_arr.push("周三");
+						}
+						if (radio_mr_str[i] == 4) {
+							radio_mr_arr.push("周四");
+						}
+						if (radio_mr_str[i] == 5) {
+							radio_mr_arr.push("周五");
+						}
+						if (radio_mr_str[i] == 6) {
+							radio_mr_arr.push("周六");
+						}
+						if (radio_mr_str[i] == 7) {
+							radio_mr_arr.push("周日");
+						}
+					}
+					$("#week_str").val("_*_*_" + radio_mr_str.join(',') + "_*");
+					if ($("#week_str").val() == "_*_*_1,2,3,4,5,6,7_*") {
+						$("#repeatTsId").text("每天");
+						$("#week_str").val("_*_*_*_*");
+					} else if ($("#week_str").val() == "_*_*_1,2,3,4,5_*") {
+						$("#repeatTsId").text("工作日");
+					} else {
+						$("#repeatTsId").text(radio_mr_arr.join(' '));
+					}
+				} else {
+					toast("请选择星期");
+					return;
+				}
+
+			}
+		} else {
+			//执行一次
+			var new_time = new Date();
+			$("#week_str").val("_" + new_time.getDate() + "_" + (new_time.getMonth() + 1) + "_*_" + new_time.getFullYear());
+			$("#repeatTsId").text("执行一次");
+		}
+		addTastbar();
+		showPage(2);
+	}
+	//-------------------------定时任务页面--------------------
+	function moreTashow_to() {
+		//任务页头部
+		changTaskBar();
+		//显示页面
+		showPage(5);
+	}
+	//头部
+	function changTaskBar() {
+		var param = {
+			"what": ["button1"],
+			"display": ["drawable_back"],
+			"callBackName": ["changTaskSave"]
+		};
+		JDSMART.util.configActionBar(param);
+		JDSMART.app.config({
+			titletext: "定时任务"
+		});
+	}
+	function changTaskSave() {
+		addTastbar();
+		showPage(2);
+		//根据选中
+	}
+	//-------------------------定时名称修改--------------------
+	//头部 
+	function updateTaskNameBar() {
+		var param = {
+			"what": ["button1"],
+			"display": ["drawable_back"],
+			"callBackName": ["saveTaskName"]
+		};
+		JDSMART.util.configActionBar(param);
+		JDSMART.app.config({
+			titletext: "定时名称"
+		});
+	}
+	//保存名称
+	function saveTaskName() {
+		var name = $("#update_name").val();
+		if (name == "") {
+			/*if($("#first_tast").attr("class")!=""){
+	     name=streams.streams[0].name;
+	  }else{
+	     name=streams.streams[1].name;
+	  }*/
+			name = $("#oldName").val();
+		}
+		if (name.length > 10) {
+			toast("名称过长哦");
+		} else {
+			$("#taskName").text(name);
+			$("#taskName").attr("title", name);
+			//$("#taskName").displayPart();
+			addTastbar();
+			showPage(2);
+		}
+	}
+	//跳转任务名称修改页面
+	function goTaskNaUpdate() {
+		updateTaskNameBar();
+		$("#update_name").focus();
+		$("#update_name").val($("#taskName").attr("title"));
+		$("#oldName").val($("#taskName").attr("title"));
+		showPage(7);
+		$('#update_name').bind('input propertychange',
+		function() {
+			var name = $("#update_name").val();
+			if (name.length > 10) {
+				toast("名称过长哦");
+				$("#update_name").val(name.substr(0, 10));
+			}
+
+		});
+	}
+	//清空名称
+	function deleTaskName() {
+		$("#update_name").val("");
+	}
+	//-------------------------执行结果通知页面----------------
+	//修改头部
+	function tongZhiBar() {
+		var param = {
+			"what": ["button1"],
+			"display": ["drawable_back"],
+			"callBackName": ["tongZhiSave"]
+		};
+		JDSMART.util.configActionBar(param);
+		JDSMART.app.config({
+			titletext: "执行结果通知"
+		});
+	}
+	//保存通知
+	function tongZhiSave() {
+		var tongshi_id = $('#tongzhi_id input:radio[name="radio_ts"]:checked').attr("id");
+		if (tongshi_id == "radio_ts_1") {
+			$("#tongzhi_type_text").text("均通知");
+			$("#tongzhi_type").val("1");
+		} else if (tongshi_id == "radio_ts_2") {
+			$("#tongzhi_type_text").text("仅执行失败通知");
+			$("#tongzhi_type").val("0");
+		} else if (tongshi_id == "radio_ts_3") {
+			$("#tongzhi_type_text").text("不通知");
+			$("#tongzhi_type").val("-1");
+		}
+		addTastbar();
+		showPage(2);
+	}
+	//初始化通知
+	function intTongZhi() {
+		tongZhiBar();
+		var ta_dd = $("#tongzhi_type_text").text();
+		if (ta_dd == "不通知") {
+			$(".radio").removeAttr("checked");
+			$("#radio_ts_3").attr("checked", "checked");
+		} else if (ta_dd == "均通知") {
+			$(".radio").removeAttr("checked");
+			$("#radio_ts_1").attr("checked", "checked");
+		} else if (ta_dd == "仅执行失败通知") {
+			$(".radio").removeAttr("checked");
+			$("#radio_ts_2").attr("checked", "checked");
+		}
+		showPage(4);
+	}
+
+	//------------------------日志查询--------------------
+	function logBar() {
+		var param = {
+			"what": ["button1", "button4"],
+			"display": ["drawable_back", "清空"],
+			"callBackName": ["firstPage", "querenClose"]
+		};
+		JDSMART.util.configActionBar(param);
+		JDSMART.app.config({
+			titletext: "执行记录"
+		});
+	}
+	//跳转日志页面
+	function gotoLog() {
+		logBar();
+		getAllLog();
+		showPage(6);
+	}
+
+	//清楚标题bar
+	function clearBar() {
+		var param = {
+			"what": ["button1", "button4"],
+			"display": [" ", " "],
+			"callBackName": [" ", " "]
+		};
+		JDSMART.util.configActionBar(param);
+
+	}
+
+	//返回首页
+	function firstPage() {
+		firstBar();
+		getAlltask();
+		showPage(1);
+	}
+	//获取log方法
+	function getAllLog() {
+
+		view_wait();
+		var logStr = "";
+		var feed_ids = {
+			"feed_id": feedid,
+			"start_time": GetDateStr_gs( - 7),
+			"end_time": GetDateStr_gs(7)
+		};
+		JDSMART.util.post("service/getTimedTaskResultByFeedId", feed_ids,
+		function(res) {
+			var ruetl = res.result;
+			if (ruetl.length > 0) {
+				$("#no_logHtm").hide();
+				$("#logHtm").show();
+				for (var i = 0; i < ruetl.length; i++) {
+					var arr_chd = ruetl[i];
+					var succec_str = "执行成功";
+					var errr_type = "yes";
+					if (parseInt(arr_chd.result) == 1) {
+						succec_str = "执行成功";
+						errr_type = "yes";
+					} else {
+						succec_str = "执行失败  设备不在线";
+						errr_type = "no";
+					}
+					var riqi = arr_chd.excute_time;
+					var name = arr_chd.task_name;
+					var sstedm = arr_chd.stream_id;
+					var sstedm_val = arr_chd.stream_value;
+					
+					if (type == 0) {
+
+					} else if (type == 1) {
+
+					} else if (type == 2) {
+												//未完善
+					}
+
+					logStr = logStr + "<div class='timebox'><h3>" + name + "<a  class='dele' name='" + riqi + "' title='" + sstedm + "' onClick='delete_log_sds(this)'>删除</a></h3>" + "<div class='timing_con'><em>" + riqi.substring(11, 16) + "</em><span class='rq'>" + riqi.substring(5, 7) + "月" + riqi.substring(8, 10) + "日</span>" + "<p class='red'>" + succec_str + "</p><div class='zxzt'></div></div></div>";
+				}
+				$("#logHtm").empty();
+				$("#logHtm").append(logStr);
+			} else {
+				$("#logHtm").hide();
+				$("#no_logHtm").show();
+			}
+			hide_wait();
+		});
+	}
+
+	//选择删除log
+	//删除定时日志
+	function delete_log_sds(bg) {
+		view_wait();
+		var riqi = $(bg).attr("name");
+		var sted = $(bg).attr("title");
+
+		var cmd = {
+			"feed_id": feedid,
+			"excute_times": [{
+				"excute_time": riqi.substring(0, 16),
+				"stream_id": sted
+			}]
+		};
+		JDSMART.util.post("service/removeTimedTaskResultByFeedId", cmd,
+		function(res) {
+			toast("删除成功");
+			getAllLog();
+			hide_wait();
+		});
+		/* */
+	}
+	//清空方法
+	function closeAllLog() {
+		view_wait();
+		var cmd = {
+			"feed_id": feedid
+		};
+		JDSMART.util.post("service/removeTimedTaskResultByFeedId", cmd,
+		function(res) {
+			getAllLog();
+			onQuerenClose();
+			hide_wait();
+		});
+		/* */
+	}
+	//清空二次确认界面
+	function querenClose() {
+		$("#maskDelete").show();
+		$("#maTsDel").show();
+		clearBar();
+	}
+	//隐藏二次确认页面
+	function onQuerenClose() {
+		$("#maskDelete").hide();
+		$("#maTsDel").hide();
+		logBar();
+	}
+	//----------------------js功能辅助函数区---------------------------
+	//1,显示页面函数
+	function showPage(num) {
+		$("#page1").hide();
+		$("#page2").hide();
+		$("#page3").hide();
+		$("#page4").hide();
+		$("#page5").hide();
+		$("#page6").hide();
+		$("#page7").hide();
+		$("#page" + num).show();
+	}
+	//2,解析定时类型
+	function get_expreee(typ) {
+		var s = typ.trim().split('_');
+		var t = new Object();
+		t.minute = s[0] < 10 ? '0' + s[0] : s[0];
+		t.hour = s[1] < 10 ? '0' + s[1] : s[1];
+		t.day = s[2];
+		t.april = s[3];
+		t.week = s[4];
+		t.year = s[5];
+		t.type = null;
+		if (t.day == '*' && t.april == '*' && t.week == '*' && t.year == '*') {
+			t.type = 4;
+			//return t;//4 每天
+		} else if (t.april == '*' && t.week == '*' && t.year == '*') {
+			t.type = 3;
+			//return t;//3;//每月 几号
+		} else if (t.day == '*' && t.april == '*' && t.year == '*') {
+			t.type = 2;
+		} else {
+			t.type = 1;
+		}
+		return t;
+	}
+	//3,弹出编辑框
+	function bianji() {
+		$("#bjts").attr("class", "bjts timetop").show();
+		$("#mask2").show();
+	}
+	//隐藏编辑框
+	function qxjs() {
+		$("#bjts").attr("class", "bjts timedow");
+		$("#mask2").hide();
+		firstBar();
+	}
+	//4,启用停用开关按钮
+	function onclc(bg, task) {
+		if ($(bg).attr("class").indexOf("on") >= 0) {
+			to_or_stop("off", task,
+			function(suc) {
+				$(bg).attr("class", "btn off");
+			});
+		} else {
+			to_or_stop("on", task,
+			function(suc) {
+				$(bg).attr("class", "btn on");
+			});
+		}
+	}
+	//5,获取get的请求参数
+	function getQry(key) {
+		var search = location.search.slice(1); //得到get方式提交的查询字符串 
+		var arr = search.split("&");
+		for (var i = 0; i < arr.length; i++) {
+			var ar = arr[i].split("=");
+			if (ar[0] == key) {
+				return ar[1];
+			}
+		}
+	}
+	//6,时间格式化
+	Date.prototype.Format = function(fmt) { //author: meizz
+		var o = {
+			"M+": this.getMonth() + 1,
+			//月份
+			"d+": this.getDate(),
+			//日
+			"h+": this.getHours(),
+			//小时
+			"m+": this.getMinutes(),
+			//分
+			"s+": this.getSeconds(),
+			//秒
+			"q+": Math.floor((this.getMonth() + 3) / 3),
+			//季度
+			"S": this.getMilliseconds() //毫秒
+		};
+		if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+		for (var k in o) if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+		return fmt;
+	}
+	//8,获取当前时间
+	function getFormatedTime() {
+		return new Date().Format("yyyy-MM-dd hh:mm");
+	}
+	//9,启用停用
+	function to_or_stop(num, task, callback) {
+		var parmm;
+		if (num == "on") {
+			parmm = {
+				"task_ids": "[" + task + "]",
+				"control": 1
+			};
+		} else if (num == "off") {
+			parmm = {
+				"task_ids": "[" + task + "]",
+				"control": 0
+			};
+		}
+		JDSMART.util.post("service/controlTimedTask", parmm, callback);
+	}
+	//点击蒙版关闭编辑弹框
+	$("#mask2").on("click",
+	function() {
+		qxjs();
+		firstBar();
+	});
+	//吐司提示
+	function toast(str) {
+		JDSMART.app.toast({
+			"message": str
+		},
+		null);
+	}
+	//判断当前时间是否大于设置时间
+	function timeIsBig() {
+		var shezhiTime = $("#appTime").val();
+
+		var timeIsNow = new Date();
+		var arr_apptime = shezhiTime.split(":");
+		var time_hs = timeIsNow.getHours();
+		var time_min = timeIsNow.getMinutes();
+		var oneScoes = parseInt(time_hs) * 60 + parseInt(time_min);
+		var twoScoes = parseInt(arr_apptime[0]) * 60 + parseInt(arr_apptime[1]);
+		var faltime = false;
+		if (oneScoes >= twoScoes) {
+			faltime = true;
+		} else {
+			faltime = false;
+		}
+		//判断日期相同
+		return faltime;
+	}
+
+	//服务器时间与当前时间比较
+	//判断当前时间是否大于设置时间
+	function serTimeBig(stime) {
+		var timeIsNow = new Date();
+		var time_hs = timeIsNow.getHours();
+		var time_min = timeIsNow.getMinutes();
+		var oneScoes = parseInt(time_hs) * 60 + parseInt(time_min);
+		var twoScoes = parseInt(stime.substring(11, 13)) * 60 + parseInt(stime.substring(14, 16));
+		var faltime = oneScoes - twoScoes;
+		if (faltime >= 3) {
+			// toast("检测到您的手机时间与北京时间快"+faltime+"分钟，我们将根据北京时间执行");
+			toast("咦！您的手机时间好像不太对哦，我们按照北京时间执行喽！");
+
+		} else if (faltime <= -3) {
+			//toast("检测到您的手机时间与北京时间慢"+faltime+"分钟，我们将根据北京时间执行");
+			toast("咦！您的手机时间好像不太对哦，我们按照北京时间执行喽！");
+		}
+	}
+
+	//返回明天日期
+	function GetDateStr(AddDayCount) {
+		var dd = new Date();
+		dd.setDate(dd.getDate() + AddDayCount); //获取AddDayCount天后的日期 
+		return dd;
+	}
+	//
+	function GetDateStr_gs(AddDayCount) {
+		var dd = new Date();
+		dd.setDate(dd.getDate() + AddDayCount); //获取AddDayCount天后的日期 
+		var y = dd.getFullYear();
+		var m = dd.getMonth() + 1; //获取当前月份的日期 
+		var d = dd.getDate();
+		return y + "-" + m + "-" + d;
+	}
+
+	//获取定时信息
+	function newNoe() {
+		var str_rtn = "今天无定时设置";
+		var nowDate = new Date();
+		var objMin;
+		var feed_ids = {
+			feed_ids: "[" + feedid + "]"
+		};
+		JDSMART.util.post("service/getTimedTaskByFeedIds", feed_ids,
+		function(res) {
+			var taskList = res.result;
+			if (taskList.length > 0) {
+				objMin = {
+					"next_left_minutes": "1440"
+				};
+				for (var i = 0; i < taskList.length; i++) {
+					var passd = taskList[i];
+					if (parseInt(passd.task_status) > 0) {
+						if (passd.next_left_minutes != "") {
+							//alert("我起"+passd.next_excute_time);
+							var tim_hiw = nowDate.getMonth() + 1;
+							var tim_hiw_str = "" + tim_hiw;
+							if (parseInt(tim_hiw) < 10) {
+								tim_hiw_str = "0" + tim_hiw;
+							}
+							var tim_min = nowDate.getDate();
+							var tim_min_str = "" + tim_min;
+							if (parseInt(tim_min) < 10) {
+								tim_min_str = "0" + tim_min;
+							}
+							var nd = tim_hiw_str + "_" + tim_min_str;
+							var getdt = passd.next_excute_time;
+							var td = getdt.substring(5, 7) + "_" + getdt.substring(8, 10);
+							if (nd == td) {
+
+								if (parseInt(objMin.next_left_minutes) > parseInt(passd.next_left_minutes)) {
+									objMin = passd;
+								}
+							}
+						}
+					}
+				}
+				if (objMin.task_name) {
+					str_rtn = objMin.task_name + " " + objMin.next_excute_time.substring(11, 17) + "执行";
+				} else {
+					str_rtn = "今天无定时设置";
+				}
+			} else {
+				str_rtn = "今天无定时设置";
+			}
+			window.location.href = 'index.html?paras=' + str_rtn;
+		});
+
+	}
+
+	function view_wait() {
+		// alert(111); 
+		$("#mask3").show();
+		// $(".loader").show();
+	}
+	function hide_wait() {
+		$("#mask3").hide();
+		// $(".loader").hide();
+	}
+	//字符超出截取显示
+	$.fn.extend({
+		displayPart: function() {
+			var displayLength = 16;
+			displayLength = this.attr("displayLength") || displayLength;
+			var text = this.text();
+			if (!text) return "";
+			var result = "";
+			var count = 0;
+			for (var i = 0; i < displayLength; i++) {
+				var _char = text.charAt(i);
+				if (count > displayLength) break;
+				if (/[^x00-xff]/.test(_char)) count++; //双字节字符，//[u4e00-u9fa5]中文  
+				result += _char;
+				count++;
+			}
+			if (result.length < text.length) {
+				result += "...";
+			}
+			this.text(result);
+		}
+	});
+</script>
