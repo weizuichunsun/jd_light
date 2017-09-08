@@ -1,5 +1,5 @@
 /*
-	@author:weizuichunsun
+	@author_wx:rongyuezhicheng
 	@组件采用原生JS设计实现！
 */
 var app={
@@ -45,9 +45,12 @@ var app={
 				JDSMART.io.controlDevice(command,
 					function(suc) {
 						console.log(suc);
+						// if(typeof(main)!="undefined"){
+						// 	main.getSnapshot();
+						// }
 					},
 					function(error) {
-						JDSMART.app.toast({message:error}, null);
+						JDSMART.app.toast({message:error.errorInfo}, null);
 						// console.log(error);
 				});
 			}
@@ -57,6 +60,13 @@ var app={
 			uiTitle:"模式设置",
 			value:"1",
 			map:[
+				{
+
+					iconlink:"ico0_a.png",
+					iconhover:"ico0_b.png",
+					title:"手动",
+					value:"0"
+				},
 				{
 
 					iconlink:"ico1_a.png",
@@ -96,9 +106,10 @@ var app={
 				JDSMART.io.controlDevice(command,
 					function(suc) {
 						console.log(suc);
+						// main.getSnapshot();
 					},
 					function(error) {
-						JDSMART.app.toast({message:error}, null);
+						JDSMART.app.toast({message:error.errorInfo}, null);
 				});
 			}
 		});
@@ -122,9 +133,10 @@ var app={
 				JDSMART.io.controlDevice(command,
 					function(suc) {
 						console.log(suc);
+						// main.getSnapshot();
 					},
 					function(error) {
-						JDSMART.app.toast({message:error}, null);
+						JDSMART.app.toast({message:error.errorInfo}, null);
 				});
 			}
 		})
@@ -148,9 +160,10 @@ var app={
 				JDSMART.io.controlDevice(command,
 					function(suc) {
 						console.log(suc);
+						// main.getSnapshot();
 					},
 					function(error) {
-						JDSMART.app.toast({message:error}, null);
+						JDSMART.app.toast({message:error.errorInfo}, null);
 				});	
 			}
 		});
